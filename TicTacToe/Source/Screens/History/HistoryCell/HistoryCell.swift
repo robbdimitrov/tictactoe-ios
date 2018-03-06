@@ -37,4 +37,21 @@ class HistoryCell: UICollectionViewCell {
         dateLabel.text = viewModel.dateText
     }
     
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        let autoLayoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
+        
+        let origin = layoutAttributes.frame.origin
+        let targetSize = CGSize(width: layoutAttributes.frame.width, height: 0)
+        
+        let horizontalFittingPriority = UILayoutPriority.required
+        let verticalFittingPriority = UILayoutPriority.defaultLow
+        
+        let autoLayoutSize = contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: horizontalFittingPriority,
+                                                             verticalFittingPriority: verticalFittingPriority)
+        
+        autoLayoutAttributes.frame = CGRect(origin: origin, size: autoLayoutSize)
+        
+        return autoLayoutAttributes
+    }
+    
 }

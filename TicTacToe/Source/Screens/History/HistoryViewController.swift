@@ -30,4 +30,11 @@ class HistoryViewController: BaseViewController<HistoryViewModel> {
             .disposed(by: disposeBag)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize =
+            CGSize(width: collectionView.frame.width, height: 100)
+    }
+    
 }
