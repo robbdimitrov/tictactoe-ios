@@ -7,10 +7,9 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol HistoryInteractorType: Interactor {
-    
-    var games: [Game] { get set }
     
     func fetchData()
     
@@ -18,10 +17,10 @@ protocol HistoryInteractorType: Interactor {
 
 class HistoryInteractor: BaseInteractor, HistoryInteractorType {
     
-    var games = [Game]()
+    var games = BehaviorSubject<[Game]>(value: [])
     
     func fetchData() {
-        
+        games.onNext(LocalDataManager.shared.allData)
     }
     
 }

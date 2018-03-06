@@ -14,6 +14,7 @@ class Game {
     var date = Date()
     var turns = [Turn]()
     var isFinished = false
+    var winner: Player?
     
     init(with grid: [String]) {
         self.grid = grid

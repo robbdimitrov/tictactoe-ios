@@ -22,10 +22,19 @@ class GameViewModel: BaseViewModel<GameInteractor, GameCoordinator> {
         gameFinished.onNext(interactor.game.isFinished)
         grid.onNext(interactor.game.grid)
         
-        interactor.status.subscribe(onNext: { [weak self] (gameStatus) in
+        interactor.status.subscribe(onNext: { [weak self] gameStatus in
             self?.gameFinished.onNext(interactor.game.isFinished)
             self?.grid.onNext(interactor.game.grid)
             self?.status.onNext(self?.generateStatus(fromGameStatus: gameStatus) ?? "")
+            
+            switch gameStatus {
+            case .inProgress:
+                break
+            case .draw:
+                fallthrough
+            case .won(_):
+                self?.saveGame()
+            }
         }).disposed(by: disposeBag)
     }
     
@@ -53,7 +62,7 @@ class GameViewModel: BaseViewModel<GameInteractor, GameCoordinator> {
     }
     
     func selectedCell(at indexPath: IndexPath) -> Bool {
-        guard interactor.game.grid[indexPath.row] == "" else {
+        guard interactor.game.isFinished == false, interactor.game.grid[indexPath.row] == "" else {
             print("Invalid turn, cell taken")
             return false
         }

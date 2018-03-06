@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		622BDD27204EBFE000A26A6E /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BDD26204EBFE000A26A6E /* DataManager.swift */; };
+		622BDD29204EBFF100A26A6E /* RealmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BDD28204EBFF100A26A6E /* RealmDataManager.swift */; };
+		622BDD2B204ECE8900A26A6E /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BDD2A204ECE8900A26A6E /* LocalDataManager.swift */; };
 		6268866120481C6000259DB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6268865F20481C6000259DB5 /* Main.storyboard */; };
 		6268866320481C6000259DB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6268866220481C6000259DB5 /* Assets.xcassets */; };
 		6268866620481C6000259DB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6268866420481C6000259DB5 /* LaunchScreen.storyboard */; };
@@ -57,6 +60,9 @@
 		0653A984B4AE15D36B84DE76 /* Pods-TicTacToe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicTacToe.release.xcconfig"; path = "Pods/Target Support Files/Pods-TicTacToe/Pods-TicTacToe.release.xcconfig"; sourceTree = "<group>"; };
 		0E75432801418B3ECDDA9253 /* Pods-TicTacToe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicTacToe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicTacToe/Pods-TicTacToe.debug.xcconfig"; sourceTree = "<group>"; };
 		589FFFAEB423215E6E97749E /* Pods_TicTacToe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicTacToe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		622BDD26204EBFE000A26A6E /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		622BDD28204EBFF100A26A6E /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
+		622BDD2A204ECE8900A26A6E /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		6268865820481C6000259DB5 /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6268866020481C6000259DB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6268866220481C6000259DB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +134,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		622BDD25204EBFD100A26A6E /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				622BDD26204EBFE000A26A6E /* DataManager.swift */,
+				622BDD28204EBFF100A26A6E /* RealmDataManager.swift */,
+				622BDD2A204ECE8900A26A6E /* LocalDataManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		6268864F20481C6000259DB5 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +199,7 @@
 			children = (
 				6268867D204827AD00259DB5 /* App */,
 				6268867F204827AD00259DB5 /* Shared */,
+				622BDD25204EBFD100A26A6E /* Persistence */,
 				62688680204827AD00259DB5 /* Models */,
 				62688681204827AD00259DB5 /* Screens */,
 			);
@@ -520,6 +537,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				622BDD27204EBFE000A26A6E /* DataManager.swift in Sources */,
 				6268869620482AE400259DB5 /* GameViewModel.swift in Sources */,
 				62711A542049480B00C60F89 /* HistoryCellInteractor.swift in Sources */,
 				626886A020482B2300259DB5 /* HistoryCoordinator.swift in Sources */,
@@ -531,6 +549,7 @@
 				626886BA204856C500259DB5 /* Storyboard.swift in Sources */,
 				6268869C20482B0C00259DB5 /* HistoryViewController.swift in Sources */,
 				626886A82048334900259DB5 /* HistoryCell.swift in Sources */,
+				622BDD2B204ECE8900A26A6E /* LocalDataManager.swift in Sources */,
 				6268869020482A9400259DB5 /* Game.swift in Sources */,
 				62711A5220493FF500C60F89 /* GameCellInteractor.swift in Sources */,
 				626B2FB5204987EF00427B38 /* BaseInteractor.swift in Sources */,
@@ -548,6 +567,7 @@
 				626886B62048534200259DB5 /* StoryboardInstantiation.swift in Sources */,
 				62688688204827D900259DB5 /* BaseViewController.swift in Sources */,
 				626886AA2048335E00259DB5 /* HistoryCellViewModel.swift in Sources */,
+				622BDD29204EBFF100A26A6E /* RealmDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

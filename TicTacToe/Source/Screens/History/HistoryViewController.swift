@@ -23,6 +23,11 @@ class HistoryViewController: BaseViewController<HistoryViewModel> {
                                               cellType: HistoryCell.self))({ [weak self] (index, _, cell) in
             cell.viewModel = self?.viewModel?.viewModel(forCell: index)
         }).disposed(by: disposeBag)
+        
+        viewModel?.data.map { (data) -> Bool in
+            return data.count > 0
+        }.bind(to: noGamesLabel.rx.isHidden)
+            .disposed(by: disposeBag)
     }
     
 }

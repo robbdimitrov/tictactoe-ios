@@ -16,11 +16,4 @@ class HistoryCellInteractor {
         self.game = game
     }
     
-    var winner: Player {
-        guard game.isFinished == true, let player = game.turns.last?.player else {
-            fatalError("Error: Game not finished, winner not available")
-        }
-        return player
-    }
-    
 }

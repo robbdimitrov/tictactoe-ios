@@ -20,6 +20,7 @@ class GameInteractor: BaseInteractor {
     var game = Game(with: [String](repeating: "", count: 9))
     var player = Player.x
     var status = BehaviorSubject<GameStatus>(value: .inProgress)
+    var gameDidSave = PublishSubject<Bool>()
     
     func addTurn(boardIndex: Int) {
         game.turns.append(Turn(player: player, position: boardIndex))
@@ -29,32 +30,25 @@ class GameInteractor: BaseInteractor {
         player = (player == .o ? .x : .o)
         
         // Check for winning combination
+        let status = gameStatus()
+        self.status.onNext(status)
         
-        status.onNext(gameStatus())
-        
-        do {
-            switch try status.value() {
-            case .won(let player):
-                winner = player
-                game.isFinished = true
-            case .draw:
-                game.isFinished = true
-            case .inProgress:
-                break
-            }
-        } catch {
-            print("Error while getting status: \(error)")
+        switch status {
+        case .won(let player):
+            game.winner = player
+            game.isFinished = true
+        case .draw:
+            game.isFinished = true
+        case .inProgress:
+            break
         }
     }
     
     func reset() {
-        game.grid = [String](repeating: "", count: 9)
+        game = Game(with: [String](repeating: "", count: 9))
         player = (Int(arc4random_uniform(UInt32(100))) % 2 == 0 ? .o : .x)
-        game.turns = []
         status.onNext(.inProgress)
     }
-    
-    var winner: Player?
     
     private func gameStatus() -> GameStatus {
         guard game.turns.count >= 5 else {
@@ -103,7 +97,8 @@ class GameInteractor: BaseInteractor {
     }
     
     func saveGame() {
-        
+        LocalDataManager.shared.save(game)
+        gameDidSave.onNext(true)
     }
     
 }

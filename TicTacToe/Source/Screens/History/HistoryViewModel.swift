@@ -12,30 +12,40 @@ import RxCocoa
 
 protocol HistoryViewModelType: ViewModel {
     
-    var data: BehaviorRelay<[Game]> { get set }
-    
     func viewModel(forCell index: Int) -> HistoryCellViewModelType
     
 }
 
 class HistoryViewModel: BaseViewModel<HistoryInteractor, BaseCoordinator>, HistoryViewModelType {
     
-    var data: BehaviorRelay<[Game]>
+    var data: BehaviorSubject<[Game]> {
+        return interactor.games
+    }
     
     override init(interactor: HistoryInteractor, coordinator: BaseCoordinator) {
-        data = BehaviorRelay(value: interactor.games)
         super.init(interactor: interactor, coordinator: coordinator)
+        
+        interactor.fetchData()
     }
     
     func viewModel(forCell index: Int) -> HistoryCellViewModelType {
-        let game = data.value[index]
-        let cellInteractor = HistoryCellInteractor(withGame: game)
-        let viewModel = HistoryCellViewModel(interactor: cellInteractor)
-        return viewModel
+        do {
+            let game = try data.value()[index]
+            let cellInteractor = HistoryCellInteractor(withGame: game)
+            let viewModel = HistoryCellViewModel(interactor: cellInteractor)
+            return viewModel
+        } catch {
+            fatalError("Error getting data: \(error)")
+        }
     }
     
     var gamesCount: Int {
-        return data.value.count
+        do {
+            return try data.value().count
+        } catch {
+            print("Error: \(error)")
+        }
+        return 0
     }
     
 }
