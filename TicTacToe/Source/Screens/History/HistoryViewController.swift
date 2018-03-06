@@ -16,6 +16,8 @@ class HistoryViewController: BaseViewController<HistoryViewModel> {
     @IBOutlet var noGamesLabel: UILabel!
     
     override func setup() {
+        super.setup()
+        
         viewModel?.data.asObservable()
             .bind(to: collectionView.rx.items(cellIdentifier: HistoryCell.cellIdentifier,
                                               cellType: HistoryCell.self))({ [weak self] (index, _, cell) in

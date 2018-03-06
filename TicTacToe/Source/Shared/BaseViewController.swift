@@ -13,11 +13,13 @@ class BaseViewController<T: ViewModel>: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    var viewModel: T? {
-        didSet {
-            setup()
-            updateUI()
-        }
+    var viewModel: T?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setup()
+        updateUI()
     }
     
     func setup() {

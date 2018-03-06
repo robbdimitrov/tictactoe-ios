@@ -12,23 +12,44 @@ import RxCocoa
 
 class GameViewModel: BaseViewModel<GameInteractor, GameCoordinator> {
     
-    var grid: BehaviorRelay<[String]> {
-        return BehaviorRelay<[String]>(value: interactor.game.grid)
-    }
+    var grid = BehaviorSubject<[String]>(value: [])
+    var gameFinished = BehaviorSubject<Bool>(value: false)
+    var status = BehaviorSubject<String>(value: "")
     
-    var gameFinished: BehaviorRelay<Bool> {
-        return BehaviorRelay<Bool>(value: interactor.game.isFinished)
-    }
-    
-    var gameWinner: BehaviorRelay<Player> {
-        return BehaviorRelay<Player>(value: interactor.winner)
+    override init(interactor: GameInteractor, coordinator: GameCoordinator) {
+        super.init(interactor: interactor, coordinator: coordinator)
+        
+        gameFinished.onNext(interactor.game.isFinished)
+        grid.onNext(interactor.game.grid)
+        
+        interactor.status.subscribe(onNext: { [weak self] (gameStatus) in
+            self?.gameFinished.onNext(interactor.game.isFinished)
+            self?.grid.onNext(interactor.game.grid)
+            self?.status.onNext(self?.generateStatus(fromGameStatus: gameStatus) ?? "")
+        }).disposed(by: disposeBag)
     }
     
     func cellViewModel(for index: Int) -> GameCellViewModel {
-        let value = grid.value[index]
+        var value: String
+        do {
+            value = try grid.value()[index]
+        } catch {
+            fatalError("Error getting grid: \(error)")
+        }
         let interactor = GameCellInteractor(withValue: value)
         let viewModel = GameCellViewModel(interactor: interactor, coordinator: BaseCoordinator())
         return viewModel
+    }
+    
+    func generateStatus(fromGameStatus gameStatus: GameStatus) -> String {
+        switch gameStatus {
+        case .draw:
+            return "A draw."
+        case .won(let player):
+            return "Player \(player.name) won."
+        case .inProgress:
+            return "\(interactor.player.name)'s turn"
+        }
     }
     
     func selectedCell(at indexPath: IndexPath) -> Bool {
@@ -38,6 +59,18 @@ class GameViewModel: BaseViewModel<GameInteractor, GameCoordinator> {
         }
         interactor.addTurn(boardIndex: indexPath.row)
         return true
+    }
+    
+    func reset() {
+        interactor.reset()
+    }
+    
+    func showHistory() {
+        coordinator.showHistory()
+    }
+    
+    func saveGame() {
+        interactor.saveGame()
     }
     
 }

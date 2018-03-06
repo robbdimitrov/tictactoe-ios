@@ -15,8 +15,8 @@ class Game {
     var turns = [Turn]()
     var isFinished = false
     
-    init(with grid: [String]? = nil) {
-        self.grid = grid ?? [String](repeating: "", count: 9)
+    init(with grid: [String]) {
+        self.grid = grid
     }
     
 }

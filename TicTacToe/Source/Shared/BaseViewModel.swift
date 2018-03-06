@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ViewModel {
     
@@ -22,6 +23,7 @@ class BaseViewModel<I: Interactor, C: Coordinator>: ViewModel {
     
     var interactor: I
     var coordinator: C
+    var disposeBag = DisposeBag()
     
     init(interactor: I, coordinator: C) {
         self.interactor = interactor

@@ -25,4 +25,9 @@ class GameCoordinator: BaseCoordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
     
+    func showHistory() {
+        let coordinator = HistoryCordinator(withNavigationController: navigationController)
+        coordinator.start()
+    }
+    
 }
