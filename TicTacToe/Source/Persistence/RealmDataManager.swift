@@ -8,8 +8,9 @@
 
 import Foundation
 import RealmSwift
+import RxRealm
 
-class RealmDataManager: DataManager {
+final class RealmDataManager: DataManager {
     
     private var storage: Realm?
     
@@ -23,8 +24,26 @@ class RealmDataManager: DataManager {
         }
     }()
     
-    func save() {
-//        storage?.add(<#T##object: Object##Object#>)
+    var numberOfObjects: Int {
+        return allObjects().count
+    }
+    
+    func object(atIndex index: Int) -> Game? {
+        return allObjects()[index]
+    }
+    
+    func allObjects() -> [Game] {
+        return storage?.objects(Game.self).toArray() ?? []
+    }
+    
+    func save(_ game: Game) {
+        do {
+            try storage?.write {
+                storage?.add(game)
+            }
+        } catch {
+            print("Error while saving a game \(error)")
+        }
     }
     
 }

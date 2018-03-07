@@ -20,11 +20,11 @@ class GameViewModel: BaseViewModel<GameInteractor, GameCoordinator> {
         super.init(interactor: interactor, coordinator: coordinator)
         
         gameFinished.onNext(interactor.game.isFinished)
-        grid.onNext(interactor.game.grid)
+        grid.onNext(Array(interactor.game.grid))
         
         interactor.status.subscribe(onNext: { [weak self] gameStatus in
             self?.gameFinished.onNext(interactor.game.isFinished)
-            self?.grid.onNext(interactor.game.grid)
+            self?.grid.onNext(Array(interactor.game.grid))
             self?.status.onNext(self?.generateStatus(fromGameStatus: gameStatus) ?? "")
             
             switch gameStatus {

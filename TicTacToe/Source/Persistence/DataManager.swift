@@ -8,4 +8,12 @@
 
 protocol DataManager {
     
+    static var shared: Self { get }
+    
+    var numberOfObjects: Int { get }
+    
+    func object(atIndex index: Int) -> Game?
+    
+    func save(_ game: Game)
+    
 }

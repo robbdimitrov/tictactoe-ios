@@ -5,6 +5,7 @@ target 'TicTacToe' do
   pod 'RealmSwift', '~> 3.0'
   pod 'RxSwift', '~> 4.0'
   pod 'RxCocoa', '~> 4.0'
+  pod 'RxRealm', '~> 0.7'
 end
 
 target 'TicTacToeTests' do

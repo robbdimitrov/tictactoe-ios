@@ -17,13 +17,13 @@ enum GameStatus {
 
 class GameInteractor: BaseInteractor {
     
-    var game = Game(with: [String](repeating: "", count: 9))
+    var game = Game(value: ["grid": [String](repeating: "", count: 9)])
     var player = Player.x
     var status = BehaviorSubject<GameStatus>(value: .inProgress)
     var gameDidSave = PublishSubject<Bool>()
     
     func addTurn(boardIndex: Int) {
-        game.turns.append(Turn(player: player, position: boardIndex))
+        game.turns.append(Turn(value: ["player": player.name, "position": boardIndex]))
         game.grid[boardIndex] = player.name
         
         // Change player
@@ -35,17 +35,21 @@ class GameInteractor: BaseInteractor {
         
         switch status {
         case .won(let player):
-            game.winner = player
-            game.isFinished = true
+            try! game.realm?.write {
+                game.winner = player.name
+                game.isFinished = true
+            }
         case .draw:
-            game.isFinished = true
+            try! game.realm?.write {
+                game.isFinished = true
+            }
         case .inProgress:
             break
         }
     }
     
     func reset() {
-        game = Game(with: [String](repeating: "", count: 9))
+        game = Game(value: ["grid": [String](repeating: "", count: 9)])
         player = (Int(arc4random_uniform(UInt32(100))) % 2 == 0 ? .o : .x)
         status.onNext(.inProgress)
     }
@@ -93,11 +97,14 @@ class GameInteractor: BaseInteractor {
         let turn = game.turns.filter { (turn) -> Bool in
             turn.position == position
         }.first
-        return turn?.player
+        if let player = turn?.player {
+            return Player(rawValue: player)
+        }
+        return nil
     }
     
     func saveGame() {
-        LocalDataManager.shared.save(game)
+        RealmDataManager.shared.save(game)
         gameDidSave.onNext(true)
     }
     

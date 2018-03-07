@@ -7,17 +7,14 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Game {
+class Game: Object {
     
-    var grid: [String]
-    var date = Date()
-    var turns = [Turn]()
-    var isFinished = false
-    var winner: Player?
-    
-    init(with grid: [String]) {
-        self.grid = grid
-    }
+    var grid = List<String>()
+    var turns = List<Turn>()
+    @objc dynamic var date = Date()
+    @objc dynamic var isFinished = false
+    @objc dynamic var winner: String?
     
 }

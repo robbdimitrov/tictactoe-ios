@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Turn {
+class Turn: Object {
     
-    var player: Player
-    var position: Int
+    @objc dynamic var player: String = Player.x.name
+    @objc dynamic var position: Int = 0
     
 }

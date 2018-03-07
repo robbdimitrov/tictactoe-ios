@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		622BDD27204EBFE000A26A6E /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BDD26204EBFE000A26A6E /* DataManager.swift */; };
 		622BDD29204EBFF100A26A6E /* RealmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BDD28204EBFF100A26A6E /* RealmDataManager.swift */; };
-		622BDD2B204ECE8900A26A6E /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BDD2A204ECE8900A26A6E /* LocalDataManager.swift */; };
 		6268866120481C6000259DB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6268865F20481C6000259DB5 /* Main.storyboard */; };
 		6268866320481C6000259DB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6268866220481C6000259DB5 /* Assets.xcassets */; };
 		6268866620481C6000259DB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6268866420481C6000259DB5 /* LaunchScreen.storyboard */; };
@@ -62,7 +61,6 @@
 		589FFFAEB423215E6E97749E /* Pods_TicTacToe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicTacToe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		622BDD26204EBFE000A26A6E /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		622BDD28204EBFF100A26A6E /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
-		622BDD2A204ECE8900A26A6E /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		6268865820481C6000259DB5 /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6268866020481C6000259DB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6268866220481C6000259DB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 			children = (
 				622BDD26204EBFE000A26A6E /* DataManager.swift */,
 				622BDD28204EBFF100A26A6E /* RealmDataManager.swift */,
-				622BDD2A204ECE8900A26A6E /* LocalDataManager.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -516,6 +513,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -523,6 +521,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,7 +548,6 @@
 				626886BA204856C500259DB5 /* Storyboard.swift in Sources */,
 				6268869C20482B0C00259DB5 /* HistoryViewController.swift in Sources */,
 				626886A82048334900259DB5 /* HistoryCell.swift in Sources */,
-				622BDD2B204ECE8900A26A6E /* LocalDataManager.swift in Sources */,
 				6268869020482A9400259DB5 /* Game.swift in Sources */,
 				62711A5220493FF500C60F89 /* GameCellInteractor.swift in Sources */,
 				626B2FB5204987EF00427B38 /* BaseInteractor.swift in Sources */,
@@ -750,7 +748,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D262CE90132119D584364AB6 /* Pods-TicTacToeTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TicTacToeTests/Info.plist;
@@ -767,7 +765,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F8DEA0241763804235436980 /* Pods-TicTacToeTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TicTacToeTests/Info.plist;

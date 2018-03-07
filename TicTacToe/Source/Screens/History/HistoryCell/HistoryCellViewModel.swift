@@ -25,7 +25,7 @@ class HistoryCellViewModel: HistoryCellViewModelType {
     
     init(interactor: HistoryCellInteractor) {
         self.interactor = interactor
-        winnerText = interactor.game.winner?.name ?? "Draw"
+        winnerText = interactor.game.winner ?? "Draw"
         turnsText = "\(interactor.game.turns.count)"
         dateText = DateFormatter.shared.string(from: interactor.game.date)
     }

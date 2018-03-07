@@ -1,3 +1,9 @@
 #  TicTacToe game
 
 Using MVVM-C architecture pattern
+
+TODO:
+- [] Realm persistence
+- [] Tests
+- [] Hide implementation details behind protocols
+- [] Code cleanup

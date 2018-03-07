@@ -20,7 +20,7 @@ class HistoryInteractor: BaseInteractor, HistoryInteractorType {
     var games = BehaviorSubject<[Game]>(value: [])
     
     func fetchData() {
-        games.onNext(LocalDataManager.shared.allData)
+        games.onNext(RealmDataManager.shared.allObjects())
     }
     
 }
