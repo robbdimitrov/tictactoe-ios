@@ -11,14 +11,16 @@ import UIKit
 class HistoryCordinator: BaseCoordinator {
     
     private var navigationController: UINavigationController
+    private var dataManager: DataManager
     
-    init(withNavigationController navigationController: UINavigationController) {
+    init(withNavigationController navigationController: UINavigationController, dataManager: DataManager) {
         self.navigationController = navigationController
+        self.dataManager = dataManager
     }
     
     override func start() {
         let viewController: HistoryViewController = UIStoryboard.main.instantiateViewController()
-        let interactor = HistoryInteractor()
+        let interactor = HistoryInteractor(withDataManager: dataManager)
         let viewModel = HistoryViewModel(interactor: interactor, coordinator: self)
         viewController.viewModel = viewModel
         

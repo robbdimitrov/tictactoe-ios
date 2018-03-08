@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol Interactor {
-    
-}
+protocol Interactor { }
 
-class BaseInteractor: Interactor {
-    
-}
+class BaseInteractor: Interactor { }

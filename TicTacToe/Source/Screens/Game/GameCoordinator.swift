@@ -11,14 +11,16 @@ import UIKit
 class GameCoordinator: BaseCoordinator {
     
     private var navigationController: UINavigationController
+    private var dataManager: DataManager
     
-    init(withNavigationController navigationController: UINavigationController) {
+    init(withNavigationController navigationController: UINavigationController, dataManager: DataManager) {
         self.navigationController = navigationController
+        self.dataManager = dataManager
     }
     
     override func start() {
         let viewController: GameViewController = UIStoryboard.main.instantiateViewController()
-        let interactor = GameInteractor()
+        let interactor = GameInteractor(withDataManager: dataManager)
         let viewModel = GameViewModel(interactor: interactor, coordinator: self)
         viewController.viewModel = viewModel
         
@@ -26,7 +28,8 @@ class GameCoordinator: BaseCoordinator {
     }
     
     func showHistory() {
-        let coordinator = HistoryCordinator(withNavigationController: navigationController)
+        let coordinator = HistoryCordinator(withNavigationController: navigationController,
+                                            dataManager: dataManager)
         coordinator.start()
     }
     

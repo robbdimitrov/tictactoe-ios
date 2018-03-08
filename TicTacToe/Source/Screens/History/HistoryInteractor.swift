@@ -18,9 +18,14 @@ protocol HistoryInteractorType: Interactor {
 class HistoryInteractor: BaseInteractor, HistoryInteractorType {
     
     var games = BehaviorSubject<[Game]>(value: [])
+    private var dataManager: DataManager
+    
+    init(withDataManager dataManager: DataManager) {
+        self.dataManager = dataManager
+    }
     
     func fetchData() {
-        games.onNext(RealmDataManager.shared.allObjects())
+        games.onNext(dataManager.allObjects())
     }
     
 }

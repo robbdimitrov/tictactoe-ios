@@ -7,42 +7,39 @@
 //
 
 import Foundation
+
 import RealmSwift
 import RxRealm
 
-final class RealmDataManager: DataManager {
+class RealmDataManager: DataManager {
     
-    private var storage: Realm?
+    private var storage: Realm
     
-    static var shared: RealmDataManager = {
+    init() {
         do {
-            let manager = RealmDataManager()
-            manager.storage = try Realm()
-            return manager
+            storage = try Realm()
         } catch {
             fatalError("Error instantiating Realm")
         }
-    }()
-    
-    var numberOfObjects: Int {
-        return allObjects().count
-    }
-    
-    func object(atIndex index: Int) -> Game? {
-        return allObjects()[index]
     }
     
     func allObjects() -> [Game] {
-        return storage?.objects(Game.self).toArray() ?? []
+        return storage.objects(Game.self).toArray()
     }
     
     func save(_ game: Game) {
         do {
-            try storage?.write {
-                storage?.add(game)
+            try storage.write {
+                storage.add(game)
             }
         } catch {
             print("Error while saving a game \(error)")
+        }
+    }
+    
+    func update(_ game: Game, updateBlock: (Game) -> Void) {
+        try! storage.write {
+            updateBlock(game)
         }
     }
     

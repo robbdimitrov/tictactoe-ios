@@ -9,18 +9,17 @@
 import Foundation
 import RxSwift
 
-enum GameStatus {
-    case inProgress
-    case draw
-    case won(Player)
-}
-
 class GameInteractor: BaseInteractor {
     
     var game = Game(value: ["grid": [String](repeating: "", count: 9)])
     var player = Player.x
     var status = BehaviorSubject<GameStatus>(value: .inProgress)
     var gameDidSave = PublishSubject<Bool>()
+    private var dataManager: DataManager
+    
+    init(withDataManager dataManager: DataManager) {
+        self.dataManager = dataManager
+    }
     
     func addTurn(boardIndex: Int) {
         game.turns.append(Turn(value: ["player": player.name, "position": boardIndex]))
@@ -36,13 +35,16 @@ class GameInteractor: BaseInteractor {
         switch status {
         case .won(let player):
             try! game.realm?.write {
+                
+            }
+            dataManager.update(game, updateBlock: { (game) in
                 game.winner = player.name
                 game.isFinished = true
-            }
+            })
         case .draw:
-            try! game.realm?.write {
+            dataManager.update(game, updateBlock: { (game) in
                 game.isFinished = true
-            }
+            })
         case .inProgress:
             break
         }
@@ -104,7 +106,7 @@ class GameInteractor: BaseInteractor {
     }
     
     func saveGame() {
-        RealmDataManager.shared.save(game)
+        dataManager.save(game)
         gameDidSave.onNext(true)
     }
     

@@ -20,7 +20,8 @@ class GameViewController: BaseViewController<GameViewModel> {
     override func setup() {
         super.setup()
         
-        viewModel?.status.asObserver().bind(to: winnerLabel.rx.text).disposed(by: disposeBag)
+        viewModel?.status.asObserver().bind(to: winnerLabel.rx.text)
+            .disposed(by: disposeBag)
         
         viewModel?.grid.asObservable()
             .bind(to: collectionView.rx.items(
