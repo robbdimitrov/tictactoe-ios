@@ -27,11 +27,11 @@ class GameInteractorTests: XCTestCase {
         
         let player = gameInteractor.game.turns.last!.player == "X" ? Player.x : Player.o
         
-        XCTAssert(try! gameInteractor.status.value() == GameStatus.won(player), "Player \(player) won")
+        XCTAssertEqual(try! gameInteractor.status.value(), GameStatus.won(player), "Player \(player) won")
     }
     
     func testInProgress() {
-        XCTAssert(try! gameInteractor.status.value() == GameStatus.inProgress, "Status in progress")
+        XCTAssertEqual(try! gameInteractor.status.value(), GameStatus.inProgress, "Status in progress")
     }
     
     func testDraw() {
@@ -39,7 +39,7 @@ class GameInteractorTests: XCTestCase {
             gameInteractor.addTurn(boardIndex: index)
         }
         
-        XCTAssert(try! gameInteractor.status.value() == GameStatus.draw, "The game finished with a draw")
+        XCTAssertEqual(try! gameInteractor.status.value(), GameStatus.draw, "The game finished with a draw")
     }
     
 }

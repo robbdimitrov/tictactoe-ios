@@ -21,7 +21,7 @@ class HistoryInteractorTests: XCTestCase {
         let historyInteractor = HistoryInteractor(withDataManager: dataManager)
         historyInteractor.fetchData()
         
-        XCTAssert(try! historyInteractor.games.value().count == 3, "There should be three game instances in memory.")
+        XCTAssertEqual(try! historyInteractor.games.value().count, 3, "There should be three game instances in memory.")
     }
     
 }

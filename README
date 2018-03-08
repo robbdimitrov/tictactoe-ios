@@ -4,7 +4,7 @@ Using MVVM-C architecture pattern
 
 TODO:
 - [X] Realm persistence
-- [] Unit Tests
+- [X] Unit Tests
+- [X] Hide implementation details behind protocols
 - [] UI Tests
-- [] Hide implementation details behind protocols
 - [] Code cleanup
