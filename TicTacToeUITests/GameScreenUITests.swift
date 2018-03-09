@@ -23,21 +23,33 @@ class GameScreenUITests: BaseUITests {
     func testPlayerWin() {
         let collectionViewsQuery = app.collectionViews
         
-        collectionViewsQuery.children(matching: .cell).element(boundBy: 0).children(matching: .other).element.tap()
-        collectionViewsQuery.children(matching: .cell).element(boundBy: 1).children(matching: .other).element.tap()
-        collectionViewsQuery.children(matching: .cell).element(boundBy: 4).children(matching: .other).element.tap()
-        collectionViewsQuery.children(matching: .cell).element(boundBy: 2).children(matching: .other).element.tap()
-        collectionViewsQuery.children(matching: .cell).element(boundBy: 8).children(matching: .other).element.tap()
+        for index in [0, 1, 4, 2, 8] {
+            collectionViewsQuery.children(matching: .cell).element(boundBy: index).children(matching: .other).element.tap()
+        }
         
         XCTAssert(app.staticTexts["Player X won."].exists, "Player X won the game")
     }
     
     func testDraw() {
+        let collectionViewsQuery = app.collectionViews
         
+        for index in [0, 1, 2, 4, 7, 3, 5, 8, 6] {
+            collectionViewsQuery.children(matching: .cell).element(boundBy: index).children(matching: .other).element.tap()
+        }
+        
+        XCTAssert(app.staticTexts["A draw."].exists, "Game finished with a draw")
     }
     
     func testReset() {
+        let collectionViewsQuery = app.collectionViews
         
+        collectionViewsQuery.children(matching: .cell).element(boundBy: 0).children(matching: .other).element.tap()
+        collectionViewsQuery.children(matching: .cell).element(boundBy: 1).children(matching: .other).element.tap()
+        
+        app.buttons["New game"].tap()
+        
+        XCTAssert(!collectionViewsQuery.staticTexts["X"].exists, "There are no X elements")
+        XCTAssert(!collectionViewsQuery.staticTexts["O"].exists, "There are no O elements")
     }
     
     func testHistoryOpening() {

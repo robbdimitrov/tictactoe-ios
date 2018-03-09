@@ -9,7 +9,7 @@ target 'TicTacToe' do
 end
 
 target 'TicTacToeTests' do
-  pod 'RealmSwift', '~> 3.0'
-  pod 'RxBlocking', '~> 4.0'
-  pod 'RxTest', '~> 4.0'
+    pod 'RealmSwift', '~> 3.0'
+    pod 'RxBlocking', '~> 4.0'
+    pod 'RxTest', '~> 4.0'
 end

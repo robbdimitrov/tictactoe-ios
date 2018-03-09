@@ -12,7 +12,7 @@ import XCTest
 class HistoryInteractorTests: XCTestCase {
     
     func testAddition() {
-        let dataManager = TestDataManager()
+        let dataManager = InMemoryDataManager()
         
         for _ in 0..<3 {
             dataManager.save(Game(value: ["grid": [String](repeating: "", count: 9)]))

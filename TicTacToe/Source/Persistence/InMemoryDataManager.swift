@@ -6,9 +6,7 @@
 //  Copyright © 2018 Robert Dimitrov. All rights reserved.
 //
 
-@testable import TicTacToe
-
-class TestDataManager: DataManager {
+class InMemoryDataManager: DataManager {
     
     private var storage = [Game]()
     

@@ -16,7 +16,7 @@ class GameInteractorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        let dataManager = TestDataManager()
+        let dataManager = InMemoryDataManager()
         gameInteractor = GameInteractor(withDataManager: dataManager)
     }
     

@@ -16,6 +16,7 @@ class BaseUITests: XCTestCase {
         super.setUp()
         
         app = XCUIApplication()
+        app.launchArguments += ["UI-TESTING"]
         continueAfterFailure = false
         app.launch()
     }

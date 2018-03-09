@@ -17,8 +17,13 @@ class AppCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        let dataManager = RealmDataManager()
         let navigationController = UINavigationController()
+        #if TEST
+            let dataManager = InMemoryDataManager()
+        #else
+            let dataManager = RealmDataManager()
+        #endif
+        
         window.rootViewController = navigationController
         let coordinator = GameCoordinator(withNavigationController: navigationController,
                                           dataManager: dataManager)
