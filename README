@@ -6,5 +6,5 @@ TODO:
 - [X] Realm persistence
 - [X] Unit Tests
 - [X] Hide implementation details behind protocols
-- [] UI Tests
-- [] Code cleanup
+- [X] UI Tests
+- [X] Code cleanup
